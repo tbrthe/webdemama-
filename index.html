@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,46 +11,81 @@
       --bg2: #ffecec;
       --accent: #d63384;
       --text: #2b2b2b;
+      --glass: rgba(255, 255, 255, 0.7);
     }
 
     * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
+    html, body { height: 100%; }
 
     body {
+      margin: 0;
       font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       background: radial-gradient(circle at 10% 10%, var(--bg1), var(--bg2));
       color: var(--text);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      padding: 24px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
     /* Tarjeta */
     .card {
-      width: 90%;
-      max-width: 800px;
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 22px;
-      padding: 36px;
-      box-shadow: 0 10px 30px rgba(214, 51, 132, 0.15);
-      text-align: center;
-      animation: fadeIn 1.2s ease;
+      width: 100%;
+      max-width: 900px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(214,51,132,0.12), 0 2px 8px rgba(43,43,43,0.06);
+      overflow: hidden;
       position: relative;
-      z-index: 1;
+      padding: 36px;
+      animation: fadeInCard 1s ease;
     }
 
-    @keyframes fadeIn {
+    @keyframes fadeInCard {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Corazón animado arriba */
-    .heart {
-      font-size: 48px;
+    /* Imagen */
+    .photo {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(214, 51, 132, 0.15);
+      animation: fadeInImage 2s ease;
+      margin-bottom: 24px;
+    }
+
+    @keyframes fadeInImage {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Encabezado */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 12px;
+    }
+
+    .logo-heart {
+      width: 84px;
+      height: 84px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: conic-gradient(from 180deg at 50% 50%, #ffd8e6, #ffb6d6 40%, #ff8ab3 70%, #ff6f9a);
+      box-shadow: 0 6px 18px rgba(214, 51, 132, 0.14);
       animation: float 3s ease-in-out infinite alternate;
+    }
+
+    .logo-heart span {
+      font-size: 38px;
+      display: inline-block;
+      transform: translateY(2px);
     }
 
     @keyframes float {
@@ -58,10 +94,23 @@
     }
 
     h1 {
+      font-size: 1.8rem;
+      margin: 0;
       color: var(--accent);
-      font-size: 2rem;
-      margin: 16px 0 8px 0;
-      animation: fadeInText 1.4s ease forwards;
+      letter-spacing: 0.2px;
+    }
+
+    /* Mensaje */
+    .message {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.6));
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(214, 51, 132, 0.06);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      animation: fadeInText 1.5s ease;
     }
 
     @keyframes fadeInText {
@@ -69,109 +118,82 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Imagen */
-    .photo-frame {
-      margin: 25px auto;
-      width: 90%;
-      max-width: 450px;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(214, 51, 132, 0.25);
-      animation: zoomIn 1.5s ease;
-    }
-
-    @keyframes zoomIn {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .photo-frame img {
-      width: 100%;
-      display: block;
-      border-radius: 18px;
-      transition: transform 0.8s ease;
-    }
-
-    .photo-frame img:hover {
-      transform: scale(1.05);
-    }
-
-    /* Mensaje */
-    .message {
-      font-size: 1.15rem;
-      line-height: 1.6;
-      animation: fadeInText 1.6s ease forwards;
-    }
-
-    .message strong {
-      color: var(--accent);
-    }
-
     .signature {
-      margin-top: 20px;
+      margin-top: 18px;
       font-weight: 600;
       color: var(--accent);
+      text-align: right;
       font-size: 1.1rem;
-      animation: fadeInText 2s ease forwards;
     }
 
     /* Corazones flotando */
     .hearts {
+      pointer-events: none;
       position: absolute;
       inset: 0;
       overflow: hidden;
-      pointer-events: none;
     }
 
-    .hearts span {
+    .hearts i {
       position: absolute;
-      font-size: 20px;
-      animation: fall linear infinite;
-      opacity: 0.8;
+      font-style: normal;
+      transform: translateY(-10vh) rotate(0deg);
+      opacity: 0.9;
+      animation: fall linear forwards;
+      font-size: 18px;
     }
 
     @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+      to {
+        transform: translateY(120vh) rotate(360deg);
+        opacity: 0.15;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .logo-heart { width: 66px; height: 66px; }
+      h1 { font-size: 1.4rem; }
+      .card { padding: 20px; border-radius: 14px; }
     }
   </style>
 </head>
-
 <body>
   <div class="card">
-    <div class="heart">💖</div>
-    <h1>Feliz Día ma❤️</h1>
+    <img src="b818d385-b17d-49bd-8d57-128500281eae.jpeg" alt="Foto familiar" class="photo">
 
-    <div class="photo-frame">
-      <img src="tu-foto.jpg" alt="Foto con mamá">
-    </div>
+    <header>
+      <div class="logo-heart"><span>💗</span></div>
+      <h1>Feliz Día ma❤️</h1>
+    </header>
 
-    <div class="message">
-      <p>Feliz Día ma❤️</p>
+    <section class="message">
       <p><strong>Te amo incondicionalmente.</strong></p>
-      <p>Aunque sea un día más quería decirte lo agradecido que estoy por todo lo que das, aunque no lo diga mucho. Hoy aprovecho para eso.</p>
+      <p>Aunque sea un día más quería decirte lo agradecido que estoy por todo lo que das aunque no lo diga mucho; hoy aprovecho para eso.</p>
       <p>Gracias por todo y de vuelta <strong>te amo</strong>.</p>
-    </div>
 
-    <div class="signature">Con todo mi amor,<br>— Bruno</div>
+      <div class="signature">Con todo mi amor, Bruno 💌</div>
+    </section>
+
+    <div class="hearts" id="heartsContainer"></div>
   </div>
 
-  <div class="hearts" id="hearts"></div>
-
   <script>
-    // Generar corazones flotando
-    const hearts = document.getElementById("hearts");
-    const emojis = ["💗","💖","💕","❤️","💓"];
-    function crearCorazon() {
-      const span = document.createElement("span");
-      span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      span.style.left = Math.random() * 100 + "vw";
-      span.style.fontSize = 12 + Math.random() * 28 + "px";
-      span.style.animationDuration = 4 + Math.random() * 3 + "s";
-      hearts.appendChild(span);
-      setTimeout(() => span.remove(), 7000);
+    const heartsContainer = document.getElementById('heartsContainer');
+
+    // Lluvia de corazones animada
+    function crearCorazones() {
+      for (let i = 0; i < 15; i++) {
+        const span = document.createElement('i');
+        span.textContent = ['💗','💖','💕','❤️'][Math.floor(Math.random() * 4)];
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.fontSize = 12 + Math.random() * 26 + 'px';
+        span.style.animationDuration = 3 + Math.random() * 3 + 's';
+        heartsContainer.appendChild(span);
+        setTimeout(() => span.remove(), 7000);
+      }
     }
-    setInterval(crearCorazon, 300);
+
+    setInterval(crearCorazones, 2000);
   </script>
 </body>
 </html>

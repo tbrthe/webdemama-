@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Feliz Día, Mamá 💖</title>
+  <style>
+    :root{
+      --bg1: #fff2f6;
+      --bg2: #ffecec;
+      --accent: #d63384;
+      --text: #2b2b2b;
+      --glass: rgba(255,255,255,0.7);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(circle at 10% 10%, var(--bg1), var(--bg2));
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Card */
+    .card{
+      width:100%;
+      max-width:900px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.78));
+      border-radius:20px;
+      box-shadow: 0 10px 30px rgba(214,51,132,0.12), 0 2px 8px rgba(43,43,43,0.06);
+      overflow:hidden;
+      position:relative;
+      padding:36px;
+      transform:translateY(0);
+      animation: cardEntrance .9s cubic-bezier(.2,.9,.2,1);
+    }
+
+    @keyframes cardEntrance {
+      from { transform: translateY(30px) scale(.99); opacity:0; }
+      to   { transform: translateY(0) scale(1); opacity:1; }
+    }
+
+    /* Header */
+    header{
+      display:flex;
+      gap:20px;
+      align-items:center;
+      margin-bottom:12px;
+    }
+    .logo-heart{
+      width:84px;
+      height:84px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: conic-gradient(from 180deg at 50% 50%, #ffd8e6, #ffb6d6 40%, #ff8ab3 70%, #ff6f9a);
+      box-shadow: 0 6px 18px rgba(214,51,132,0.14);
+      transform-origin:center;
+      animation: float 3s ease-in-out infinite alternate;
+    }
+    .logo-heart span{ font-size:38px; display:inline-block; transform:translateY(2px); }
+
+    @keyframes float{ from{transform:translateY(0)} to{transform:translateY(-12px)} }
+
+    h1{
+      font-size:1.8rem;
+      margin:0;
+      color:var(--accent);
+      letter-spacing:0.2px;
+    }
+    p.lead{
+      margin:12px 0 0 0;
+      font-size:1.05rem;
+      line-height:1.5;
+      max-width:700px;
+    }
+
+    /* Message box */
+    .message{
+      margin-top:18px;
+      padding:18px;
+      border-radius:14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.55));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(214,51,132,0.06);
+      font-size:1.05rem;
+    }
+    .message p { margin:0 0 10px 0; }
+
+    .signature{
+      margin-top:18px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .you{
+      font-weight:600;
+      color:var(--accent);
+    }
+
+    /* Riddle section */
+    .riddle {
+      margin-top:22px;
+      padding:16px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(246, 237, 250,0.6), rgba(255,245,247,0.5));
+      border:1px dashed rgba(214,51,132,0.12);
+    }
+    .riddle h2{ margin:0 0 8px 0; font-size:1.05rem; color:#8b2b5a; }
+    .riddle .q{ font-size:1.05rem; margin-bottom:12px; }
+    .controls{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    button{
+      cursor:pointer;
+      border:0;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:600;
+      background: linear-gradient(90deg,#ff9ac2,#d63384);
+      color:white;
+      box-shadow: 0 6px 18px rgba(214,51,132,0.18);
+      transition: transform .12s ease, box-shadow .12s;
+    }
+    button:active{ transform: translateY(1px) scale(.995); }
+    .hint{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid rgba(214,51,132,0.14);
+      box-shadow:none;
+    }
+
+    /* Answer reveal */
+    .answer{
+      margin-top:12px;
+      padding:12px;
+      border-radius:10px;
+      background:var(--glass);
+      display:none;
+      font-weight:600;
+      color:#4b2140;
+      border:1px solid rgba(214,51,132,0.06);
+    }
+
+    /* small footer */
+    footer{ margin-top:18px; font-size:0.85rem; color:#6b445b; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
+
+    /* falling hearts (simple confetti) */
+    .hearts{
+      pointer-events:none;
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+    }
+    .hearts i{
+      position:absolute;
+      font-style:normal;
+      transform:translateY(-10vh) rotate(0deg);
+      opacity:0.9;
+      animation-name:fall;
+      animation-timing-function: linear;
+      animation-iteration-count: 1;
+      font-size: 18px;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(120vh) rotate(360deg);
+        opacity:.15;
+      }
+    }
+
+    /* responsive */
+    @media (max-width:520px){
+      .logo-heart{ width:66px; height:66px; }
+      h1{ font-size:1.4rem }
+      .card{ padding:20px; border-radius:14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="main" aria-labelledby="titulo">
+    <header>
+      <div class="logo-heart" aria-hidden="true"><span>💗</span></div>
+      <div>
+        <h1 id="titulo">Feliz Día ma<span aria-hidden="true">❤️</span></h1>
+        <p class="lead">Un abrazo virtual gigante para la mejor mamá del mundo.</p>
+      </div>
+    </header>
+
+    <section class="message" aria-label="Mensaje">
+      <!-- Texto exacto pedido por el usuario -->
+      <p>Feliz Día ma❤️</p>
+      <p><strong>Te amo incondicionalmente.</strong></p>
+      <p>Aunque sea un día más quería decirte lo agradecido que estoy por todo lo que das aunque no lo diga mucho; hoy aprovecho para eso. Gracias por todo y de vuelta <strong>te amo</strong>.</p>
+      <div class="signature">
+        <div class="you">Con todo mi amor,</div>
+        <div aria-hidden="true">— (tu nombre)</div>
+      </div>
+    </section>
+
+    <section class="riddle" aria-label="Acertijo">
+      <h2>Acertijo para que resuelvas 🧩</h2>
+      <div class="q" id="riddleQ">
+        Soy el primer sonido que escuchaste,  
+        estoy en cada abrazo que te han dado,  
+        no se ve pero lo sientes,  
+        te guía, protege y calma cuando estás cansada.  
+        ¿Qué soy?
+      </div>
+
+      <div class="controls">
+        <button id="showAnswerBtn" aria-expanded="false">Mostrar respuesta</button>
+        <button id="hintBtn" class="hint">Pista</button>
+        <button id="cheerBtn" aria-label="Celebrar">🎉</button>
+      </div>
+
+      <div class="answer" id="answerBox" aria-hidden="true">
+        Respuesta: <strong>El amor de una madre</strong> ❤️
+      </div>
+    </section>
+
+    <footer>
+      <div>Si querés, podés cambiar "(tu nombre)" por el tuyo antes de enviar.</div>
+      <div>Abrazos digitales 🤗</div>
+    </footer>
+
+    <div class="hearts" id="heartsContainer" aria-hidden="true"></div>
+  </div>
+
+  <script>
+    // Interactividad: mostrar respuesta e insertar pista
+    const showBtn = document.getElementById('showAnswerBtn');
+    const answerBox = document.getElementById('answerBox');
+    const hintBtn = document.getElementById('hintBtn');
+    const riddleQ = document.getElementById('riddleQ');
+    const cheatBtn = document.getElementById('cheerBtn');
+    const heartsContainer = document.getElementById('heartsContainer');
+
+    showBtn.addEventListener('click', () => {
+      const shown = answerBox.style.display === 'block';
+      if(!shown){
+        answerBox.style.display = 'block';
+        answerBox.setAttribute('aria-hidden','false');
+        showBtn.textContent = 'Ocultar respuesta';
+        showBtn.setAttribute('aria-expanded','true');
+      } else {
+        answerBox.style.display = 'none';
+        answerBox.setAttribute('aria-hidden','true');
+        showBtn.textContent = 'Mostrar respuesta';
+        showBtn.setAttribute('aria-expanded','false');
+      }
+    });
+
+    hintBtn.addEventListener('click', () => {
+      hintBtn.textContent = 'Pista: Empieza con "E" y termina con "amor".';
+      hintBtn.disabled = true;
+      hintBtn.classList.add('hint');
+    });
+
+    // Simple celebration: generar corazones animados
+    cheatBtn.addEventListener('click', () => {
+      for(let i=0;i<18;i++){
+        const span = document.createElement('i');
+        span.textContent = ['💗','💖','💕','❤️'][Math.floor(Math.random()*4)];
+        span.style.left = (Math.random()*100) + 'vw';
+        span.style.fontSize = (12 + Math.random()*26)+'px';
+        span.style.animationDuration = (3 + Math.random()*3) + 's';
+        span.style.opacity = (0.7+Math.random()*0.3);
+        heartsContainer.appendChild(span);
+        // cleanup after animation
+        setTimeout(()=>{ span.remove(); }, 7000);
+      }
+    });
+
+    // Accessibility: allow Enter/Space to trigger buttons
+    [showBtn, hintBtn, cheatBtn].forEach(btn=>{
+      btn.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
